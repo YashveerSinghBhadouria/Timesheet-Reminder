@@ -1,7 +1,7 @@
 let request = require("request");
 
 exports.sendSlackReminder = ( req,res ) => {
-ß
+
     let text = "Bye"
     let channel = "UTBB9EGAV"
     let token   = "xoxb-929380680993-941526118679-jdZHK4Q092wTLVZLHip5YFuF"
