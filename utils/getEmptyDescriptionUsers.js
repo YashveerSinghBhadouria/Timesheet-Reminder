@@ -1,31 +1,28 @@
-const noDescription = (jsonUserData, entryArray) => {
-    let noDesc = [];
-    for(let i=0;i<entryArray.length;i++){
-      if( checkingDescription( getDescription(jsonUserData,entryArray[i][0]) ) ) {
-        noDesc.push([entryArray[i][0],entryArray[i][1]]);
-      }
-    }
-    return noDesc;
-  }
-  
-  const getDescription = (jsonUserData,id) => {
-    let desc = [];
-    for(let i=0;i<jsonUserData.length;i++){
-        if(jsonUserData[i].user==id){
-          desc.push(jsonUserData[i].description);
+let hashmap = require('hashmap');
+
+const checkDescription = ( timesheetRecords, id ) => {
+    let descriptionArray = [];
+    timesheetRecords.forEach( record => {  
+        if( ( record.user == id) && ( record.description == null  )  ){
+            descriptionArray.push( record.begin );
         }
-    }
-    return desc;
-  }
-  
-  const checkingDescription = (desc) => {
-    for(let i=0; i<desc.length; i++){
-      if(desc[i].length < 5){
-        return true;
-      }
-    }
-    return false;
-  }
-  
-  module.exports=noDescription;
-  
+    });
+    return descriptionArray;
+}
+
+exports.getEmptyDescriptionUsers = ( timesheetRecords, userRecords ) => {
+    let userDescriptionMap = new hashmap();
+    let result = []
+    userRecords.forEach( user => {
+        let descriptionArray = checkDescription( timesheetRecords,user.id );
+        if( descriptionArray.length > 0 ){
+            result.push( 
+                {
+                    username : user.username,
+                    timearray:descriptionArray
+                }
+            );
+        }
+    });
+    return result;
+}

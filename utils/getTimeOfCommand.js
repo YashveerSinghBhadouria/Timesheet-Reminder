@@ -5,7 +5,7 @@ exports.getTimeOfCommand = ( requestedCommand ) => {
     if( requestedCommand.includes( "week" )  == true   ) {
         type = Constants.WEEK_KEYWORD;
     }
-    else if( requestedCommand.includes( "month" ) == true ){
+    else if( requestedCommand.includes("month" ) == true ){
       type = Constants.MONTH_KEYWORD;
     }
     else{

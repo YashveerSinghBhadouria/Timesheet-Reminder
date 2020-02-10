@@ -3,7 +3,8 @@ let getTimesheetRecords = require('../utils/getTimesheetRecords');
 let getTotalNoOfHours   = require('../utils/getTotalNoOfHours');
 
 exports.getNoOfHours = async ( req,res ) => {
-    await getTimesheetRecords.getTimeSheetRecords(req.body.command, async ( timesheetRecords )=>{
+    const { body: { command } } = req;
+    await getTimesheetRecords.getTimeSheetRecords(command, async ( timesheetRecords )=>{
       await getUserRecords.getUsers( async (userRecords) => {   
           let data = {
               timesheetRecords,
