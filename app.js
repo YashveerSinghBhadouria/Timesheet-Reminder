@@ -10,7 +10,6 @@ const path = require('path');
 const apiController = require('./controllers/api');
 
 const slackReminderController = require('./controllers/slackReminderApi.js');
-
 const getTimesheetRecordsController = require('./controllers/getTimesheetRecordsApi.js');
 
 /**
@@ -31,11 +30,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
  * API examples routes.
  */
 app.get('/api', apiController.getApi);
-
 app.get('/slackreminder', slackReminderController.sendSlackReminder);
-
 app.get('/timesheetrecords', getTimesheetRecordsController.getTimesheetRecords);
-
 
 
 if (process.env.NODE_ENV === 'development') {
