@@ -2,15 +2,15 @@ const express = require('express');
 const compression = require('compression');
 const bodyParser = require('body-parser');
 const errorHandler = require('errorhandler');
-const path = require('path');
 
 /**
  * Controllers (route handlers).
  */
 const apiController = require('./controllers/api');
 
-const slackReminderController = require('./controllers/slackReminderApi.js');
-const getTimesheetRecordsController = require('./controllers/getTimesheetRecordsApi.js');
+const getTimesheetMissingRecordsController = require('./controllers/getTimesheetMissingRecords.js');
+const getTimesheetMissingDescriptionController = require('./controllers/getTimesheetMissingDescription.js');
+const getNoOfHoursController = require('./controllers/getNoOfHours.js');
 
 /**
  * Create Express server.
@@ -25,14 +25,14 @@ app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
 /**
  * API examples routes.
  */
 app.get('/api', apiController.getApi);
-app.get('/slackreminder', slackReminderController.sendSlackReminder);
-app.get('/timesheetrecords', getTimesheetRecordsController.getTimesheetRecords);
 
+app.post('/timesheet_missing_records', getTimesheetMissingRecordsController.getTimesheetMissingRecords);
+app.post('/timesheet_missing_description', getTimesheetMissingDescriptionController.getTimesheetMissingDescription);
+app.post('/noofhours', getNoOfHoursController.getNoOfHours);
 
 if (process.env.NODE_ENV === 'development') {
     // only use in development

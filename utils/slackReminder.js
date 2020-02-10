@@ -1,14 +1,13 @@
 let request = require("request");
 
-exports.sendSlackReminder = ( req,res ) => {
-
-    let text = "Bye"
-    let channel = "UTBB9EGAV"
-    let token   = "xoxb-929380680993-941526118679-jdZHK4Q092wTLVZLHip5YFuF"
+exports.sendSlackReminder = ( text,channel ) => {
+    // let text = "Bye"
+    // let channel = "UTBB9EGAV"
+    let token   = process.env.slackBotToken
  
     let options = { 
         method: 'POST',
-        url: 'https://slack.com/api/chat.postMessage',
+        url: process.env.slackPostMessageURL,
         headers: {
              'content-type': 'application/x-www-form-urlencoded',
              'postman-token': '5306ad3b-1cb6-80bb-7094-206f0619970d',
@@ -24,7 +23,6 @@ exports.sendSlackReminder = ( req,res ) => {
   
   request(options, function (error, response, body) {
     if (error) throw new Error(error);
-    console.log(body);
     res.send(body);
   });
   

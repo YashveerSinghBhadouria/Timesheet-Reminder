@@ -1,12 +1,12 @@
 let request = require("request");
 
-exports.getUsers = (callback) => {
-    let xauthtoken = "api_kitten";
-    let xauthuser  = "susan_super";    
+exports.getUsers = (userRecords) => {
+    let xauthtoken = process.env.xauthtoken;
+    let xauthuser  = process.env.xauthuser;    
 
     let options = { 
         method: 'GET',
-        url: 'https://demo-stable.kimai.org/api/users',
+        url: process.env.userRecordsURL,
         headers: 
         { 
             'postman-token': 'a4cc6340-5a7d-fade-9b48-6f44094e86ae',
@@ -18,7 +18,7 @@ exports.getUsers = (callback) => {
 
     request(options, (error, response, body) => {
         if (error) throw new Error(error);       
-        callback(body)
+        userRecords(body)
     });  
       
 }
