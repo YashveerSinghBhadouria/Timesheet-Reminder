@@ -22,6 +22,7 @@
     "dotenv": "^8.2.0",
     "errorhandler": "^1.5.1",
     "express": "^4.17.1",
+    "hashmap": "^2.4.0",
     "moment": "^2.24.0",
     "path": "^0.12.7",
     "request": "^2.88.0"
