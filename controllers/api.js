@@ -1,8 +1,4 @@
 
-let getUserstRecordsApi = require('../utils/getUserRecords')
-
-exports.getApi =  async (req, res) => {
-    await getUserstRecordsApi.getUsers( (users)=>{
-        res.send(users);
-    });    
+exports.getApi =  (req, res) => {
+    res.send( "Hello" );
 };

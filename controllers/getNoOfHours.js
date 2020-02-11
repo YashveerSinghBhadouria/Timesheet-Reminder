@@ -11,7 +11,13 @@ exports.getNoOfHours = async ( req,res ) => {
               userRecords
           }           
           let result = await getTotalNoOfHours.getTotalNoOfHours(JSON.parse(timesheetRecords),JSON.parse(userRecords));
-          res.send(result);
+        //   console.log(result);                    
+          let stringResult = "";
+          result.forEach( user => {
+                stringResult = stringResult + user.username + " " + user.totalhours + "\n";
+          });
+          console.log(stringResult);          
+          res.send(stringResult);
         });      
     });  
     
