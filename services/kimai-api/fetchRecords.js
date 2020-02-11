@@ -1,5 +1,5 @@
 const request = require("request");
-const getDates     = require('./getDates')
+const getDates     = require('../../utils/getDates')
 require('dotenv').config()
 
 const xauthtoken = process.env.xauthtoken;

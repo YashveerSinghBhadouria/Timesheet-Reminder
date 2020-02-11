@@ -1,5 +1,5 @@
-const getRecords = require('../utils/getRecords');
-const getTotalNoOfHours   = require('../utils/getTotalNoOfHours');
+const getRecords = require('../services/kimai-api/fetchRecords');
+const getTotalNoOfHours   = require('../services/employee/employee');
 
 const getResultIntoString = ( result ) => {
     let stringResult = "";

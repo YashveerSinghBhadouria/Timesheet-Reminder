@@ -1,3 +1,5 @@
+
+
 const checkDescription = ( timesheetRecords, id ) => {
     let descriptionArray = [];
     timesheetRecords.forEach( record => {  
