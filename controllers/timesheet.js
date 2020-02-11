@@ -1,4 +1,5 @@
 const getRecords = require('../utils/getRecords');
+const getEmptyTimesheetUsers = require('../utils/getEmptyTimesheetUsers');
 const getEmptyDescriptionUsers = require('../utils/getEmptyDescriptionUsers');
 
 const getResultIntoString = ( result ) => {
@@ -21,3 +22,14 @@ exports.getTimesheetMissingDescription = async ( req,res ) => {
     const stringResult =  getResultIntoString(result);
     res.send(stringResult);
 }
+
+exports.getTimesheetMissingRecords = async ( req,res ) => {
+    const { body: { command } } = req;   
+    const timesheetRecordsPromise = getRecords.getTimeSheetRecords(command);
+    const userRecordsPromise      = getRecords.getUsers(); 
+    const records = await Promise.all([timesheetRecordsPromise, userRecordsPromise]);
+    let result    = await getEmptyTimesheetUsers.getEmptyTimesheetUsers(JSON.parse(records[0]),JSON.parse(records[1]));
+    res.send(result);  
+}
+
+

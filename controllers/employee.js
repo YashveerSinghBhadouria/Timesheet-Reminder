@@ -9,7 +9,7 @@ const getResultIntoString = ( result ) => {
     return stringResult;
 }
 
-exports.getNoOfHours = async ( req,res ) => {
+exports.countWorkingHours = async ( req,res ) => {
     const { body: { command } } = req;   
     const timesheetRecordsPromise = getRecords.getTimeSheetRecords(command);
     const userRecordsPromise      = getRecords.getUsers(); 

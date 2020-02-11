@@ -41,5 +41,3 @@ exports.getTimeSheetRecords = async (command) => {
     let result = await performRequest(options);    
     return result;
 }
-
-
