@@ -1,5 +1,14 @@
 let request = require("request");
 
+const performRequest = (options) => {
+    return new Promise((resolve, reject)=>{
+      request(options,(error, response, body) => {
+        if (error) throw new Error(error);   
+        resolve(body);
+      });     
+    });
+  }
+  
 exports.getUsers = (userRecords) => {
     let xauthtoken = process.env.xauthtoken;
     let xauthuser  = process.env.xauthuser;    
@@ -16,11 +25,8 @@ exports.getUsers = (userRecords) => {
         }
     };
 
-    request(options, (error, response, body) => {
-        if (error) throw new Error(error);       
-        userRecords(body)
-    });  
-      
+    let result = await performRequest(options);    
+    return result;      
 }
 
 

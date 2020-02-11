@@ -3,7 +3,16 @@ const getDates     = require('../utils/getDates')
 
 require('dotenv').config()
 
-exports.getTimeSheetRecords = (command,timesheetRecords) => {
+const performRequest = (options) => {
+  return new Promise((resolve, reject)=>{
+    request(options,(error, response, body) => {
+      if (error) throw new Error(error);   
+      resolve(body);
+    });     
+  });
+}
+
+exports.getTimeSheetRecords = async (command) => {
     let xauthtoken = process.env.xauthtoken;
     let xauthuser  = process.env.xauthuser;    
     const Dates    = getDates.getDates(command);
@@ -24,9 +33,8 @@ exports.getTimeSheetRecords = (command,timesheetRecords) => {
         } 
     };
     
-    request(options, async function (error, response, body) {
-        if (error) throw new Error(error);       
-        timesheetRecords(body);
-    });    
+    let result = await performRequest(options);    
+    return result;
 }
+
 

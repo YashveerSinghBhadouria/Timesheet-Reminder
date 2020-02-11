@@ -1,12 +1,9 @@
 let moment = require('moment');
-
 const Constants = require('../constants');
-
 let getTimeOfCommand = require('../utils/getTimeOfCommand');
 
 exports.getDates = (command) => {
     let commandtime = getTimeOfCommand.getTimeOfCommand(command);
-
     let yesterday  = moment().subtract(1,'days').endOf('day');    
     let enddate    = yesterday.format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS).toString();
 
@@ -21,7 +18,6 @@ exports.getDates = (command) => {
     else if( commandtime == Constants.MONTH_KEYWORD ){
         begindate = enddateMinusOneMonth;
     }
-
     const Dates = {
       begindate,
       enddate

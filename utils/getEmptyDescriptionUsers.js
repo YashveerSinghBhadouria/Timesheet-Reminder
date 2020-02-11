@@ -1,5 +1,3 @@
-let hashmap = require('hashmap');
-
 const checkDescription = ( timesheetRecords, id ) => {
     let descriptionArray = [];
     timesheetRecords.forEach( record => {  
@@ -11,7 +9,6 @@ const checkDescription = ( timesheetRecords, id ) => {
 }
 
 exports.getEmptyDescriptionUsers = ( timesheetRecords, userRecords ) => {
-    let userDescriptionMap = new hashmap();
     let result = []
     userRecords.forEach( user => {
         let descriptionArray = checkDescription( timesheetRecords,user.id );
@@ -23,6 +20,6 @@ exports.getEmptyDescriptionUsers = ( timesheetRecords, userRecords ) => {
                 }
             );
         }
-    });
+    });  
     return result;
 }

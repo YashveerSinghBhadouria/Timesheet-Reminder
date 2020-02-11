@@ -6,8 +6,8 @@ const checkPresence = ( timesheetRecords, id ) => {
     }
     return false;
 }
-
 exports.getEmptyTimesheetUsers = ( timesheetRecords,userRecords ) => {
+
     let missingRecords = [];
     userRecords.forEach( user => {
         if( checkPresence(  timesheetRecords, user.id  ) === false  ){                       
