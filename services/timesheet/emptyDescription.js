@@ -1,19 +1,25 @@
-const checkPresence = ( timesheetRecords, id ) => {
-    for( let i=0; i< timesheetRecords.length; i++ ){
-        if( timesheetRecords[i].user == id ){
-            return true;
-        }        
-    }
-    return false;
-}
-exports.getEmptyTimesheetUsers = ( timesheetRecords,userRecords ) => {
-
-    let missingRecords = [];
-    userRecords.forEach( user => {
-        if( checkPresence(  timesheetRecords, user.id  ) === false  ){                       
-            missingRecords.push( user.username );            
-            return;
+const checkDescription = ( timesheetRecords, id ) => {
+    let descriptionArray = [];
+    timesheetRecords.forEach( record => {  
+        if( ( record.user == id) && ( record.description == null  )  ){
+            descriptionArray.push( record.begin );
         }
-    });   
-    return missingRecords;
+    });
+    return descriptionArray;
+}
+
+exports.getEmptyDescriptionUsers = ( timesheetRecords, userRecords ) => {
+    let result = []
+    userRecords.forEach( user => {
+        let descriptionArray = checkDescription( timesheetRecords,user.id );
+        if( descriptionArray.length > 0 ){
+            result.push( 
+                {
+                    username : user.username,
+                    timearray:descriptionArray
+                }
+            );
+        }
+    });  
+    return result;
 }

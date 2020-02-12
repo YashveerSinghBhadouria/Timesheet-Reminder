@@ -33,7 +33,7 @@ exports.getTimesheetMissingDescription = async ( req,res ) => {
     const timesheetRecordsPromise = getRecords.getTimeSheetRecords(command);
     const userRecordsPromise      = getRecords.getUsers(); 
     const records = await Promise.all([timesheetRecordsPromise, userRecordsPromise]);
-    let result    = await missingRecordsService.getEmptyDescriptionUsers(JSON.parse(records[0]),JSON.parse(records[1]));
+    let result    = await emptyDescriptionService.getEmptyDescriptionUsers(JSON.parse(records[0]),JSON.parse(records[1]));
     const stringResult = stringConverterHelper.getTimesheetRecordsIntoString(result);
     res.send(stringResult);
 }
@@ -49,7 +49,7 @@ exports.getTimesheetMissingRecords = async ( req,res ) => {
     const timesheetRecordsPromise = getRecords.getTimeSheetRecords(command);
     const userRecordsPromise      = getRecords.getUsers(); 
     const records = await Promise.all([timesheetRecordsPromise, userRecordsPromise]);
-    let result    = await emptyDescriptionService.getEmptyTimesheetUsers(JSON.parse(records[0]),JSON.parse(records[1]));
+    let result    = await missingRecordsService.getEmptyTimesheetUsers(JSON.parse(records[0]),JSON.parse(records[1]));
     res.send(result);  
 }
 
