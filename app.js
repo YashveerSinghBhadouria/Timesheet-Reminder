@@ -6,13 +6,13 @@ const routes  = require('./routes')
 
 const app = express();
 
-app.use('/',routes);
-
 app.set('port', process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080);
 app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
+app.use('/',routes);
 
 if (process.env.NODE_ENV === 'development') {
     app.use(errorHandler());

@@ -27,7 +27,7 @@ const performRequest = (options) => {
   
 exports.getUsers = async () => {
     options.url = process.env.userRecordsURL;
-    let result = await performRequest(options);    
+    let result =  performRequest(options);    
     return result;      
 }
 
@@ -38,6 +38,6 @@ exports.getTimeSheetRecords = async (command) => {
         begin: Dates.begindate,
         end : Dates.enddate 
     }    
-    let result = await performRequest(options);    
+    let result =  performRequest(options);    
     return result;
 }

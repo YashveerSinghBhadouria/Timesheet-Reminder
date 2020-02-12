@@ -13,8 +13,7 @@ const getUserMap = (userRecords) => {
 }
 
 exports.getTotalNoOfHours = (timesheetRecords, userRecords) => {
-    let userMap = new hashmap();
-    userMap = getUserMap(userRecords);  
+    let userMap = getUserMap(userRecords);  
     
     timesheetRecords.forEach( record  => {
         let userdata = userMap.get(record.user);
