@@ -3,7 +3,32 @@ const emptyDescriptionService = require('../services/timesheet/emptyDescription'
 const missingRecordsService = require('../services/timesheet/missingRecords');
 const stringConverterHelper = require('../utils/stringConverterHelper');
 
+const { body } = require('express-validator/check')
+const { validationResult } = require('express-validator/check');
+
+exports.validate = ( method ) => {    
+    switch (method) {
+        case 'getTimesheetMissingRecords': {
+            return [ 
+                body('command', ' command doesnt exists ').not().isEmpty()
+            ]   
+        }
+        break;
+        case 'getTimesheetMissingDescription':{
+            return [ 
+                body('command', ' command doesnt exists ').not().isEmpty()
+            ]   
+        }
+    }
+}
+
 exports.getTimesheetMissingDescription = async ( req,res ) => {
+    const errors = validationResult(req); 
+    if (!errors.isEmpty()) {
+        res.status(422).json({ errors: errors.array() });
+        return;
+    }
+
     const { body: { command } } = req;   
     const timesheetRecordsPromise = getRecords.getTimeSheetRecords(command);
     const userRecordsPromise      = getRecords.getUsers(); 
@@ -14,6 +39,12 @@ exports.getTimesheetMissingDescription = async ( req,res ) => {
 }
 
 exports.getTimesheetMissingRecords = async ( req,res ) => {
+    const errors = validationResult(req); 
+    if (!errors.isEmpty()) {
+        res.status(422).json({ errors: errors.array() });
+        return;
+    }
+
     const { body: { command } } = req;   
     const timesheetRecordsPromise = getRecords.getTimeSheetRecords(command);
     const userRecordsPromise      = getRecords.getUsers(); 

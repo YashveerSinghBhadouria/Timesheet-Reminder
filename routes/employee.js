@@ -5,6 +5,6 @@ const employeeController = require("../controllers/employee");
 
 router
     .route('/count-working-hours')
-    .post(employeeController.countWorkingHours);
+    .post( employeeController.validate('countWorkingHours'),employeeController.countWorkingHours);
 
 module.exports = router;

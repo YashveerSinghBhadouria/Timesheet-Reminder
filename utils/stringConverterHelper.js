@@ -12,8 +12,7 @@ exports.getTimesheetRecordsIntoString = ( result ) => {
         stringResult = stringResult + user.username + "\n";
         user.timearray.forEach( datetime => {
             let date = datetime.slice(0,10);
-            let time = datetime.slice(11,19);
-            stringResult = stringResult + "\t\t" + date + "\t" + time + "\n";    
+            stringResult = stringResult + "\t\t" + date + "\n";    
         });            
     });
     return stringResult;

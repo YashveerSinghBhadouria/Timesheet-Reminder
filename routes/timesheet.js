@@ -5,10 +5,10 @@ const timesheetController = require("../controllers/timesheet");
 
 router
     .route('/missing-records')
-    .post(timesheetController.getTimesheetMissingRecords);
+    .post(timesheetController.validate('getTimesheetMissingRecords'),timesheetController.getTimesheetMissingRecords);
 
 router
     .route('/missing-description')
-    .post(timesheetController.getTimesheetMissingDescription);
+    .post(timesheetController.validate('getTimesheetMissingDescription'),timesheetController.getTimesheetMissingDescription);
 
 module.exports = router;

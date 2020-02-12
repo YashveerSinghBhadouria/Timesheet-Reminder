@@ -1,6 +1,7 @@
 const express = require('express');
 const compression = require('compression');
 const bodyParser = require('body-parser');
+const expressValidator = require('express-validator')
 
 const routes  = require('./routes')
 
@@ -10,6 +11,7 @@ app.set('port', process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080);
 app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(expressValidator());
 
 app.use('/',routes);
 
