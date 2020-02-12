@@ -1,17 +1,7 @@
 const getRecords = require('../services/kimai-api/fetchRecords');
 const emptyDescriptionService = require('../services/timesheet/emptyDescription');
 const missingRecordsService = require('../services/timesheet/missingRecords');
-
-const getResultIntoString = ( result ) => {
-    let stringResult = "";
-    result.forEach( user => {
-        stringResult = stringResult + user.username + "\n";
-        user.timearray.forEach( time => {
-            stringResult = stringResult + "\t\t" + time + "\n";            
-        });            
-    });
-    return stringResult;
-}
+const stringConverterHelper = require('../utils/stringConverterHelper');
 
 exports.getTimesheetMissingDescription = async ( req,res ) => {
     const { body: { command } } = req;   
@@ -19,7 +9,7 @@ exports.getTimesheetMissingDescription = async ( req,res ) => {
     const userRecordsPromise      = getRecords.getUsers(); 
     const records = await Promise.all([timesheetRecordsPromise, userRecordsPromise]);
     let result    = await missingRecordsService.getEmptyDescriptionUsers(JSON.parse(records[0]),JSON.parse(records[1]));
-    const stringResult =  getResultIntoString(result);
+    const stringResult = stringConverterHelper.getTimesheetRecordsIntoString(result);
     res.send(stringResult);
 }
 
