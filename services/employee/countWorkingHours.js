@@ -1,10 +1,19 @@
-const Constants  = require('../constants');
-let getUserMap   = require('./getUserMap')
+const Constants  = require('../../constants');
 const hashmap    = require('hashmap');
 
+const getUserMap = (userRecords) => {
+    let map = new hashmap();
+    userRecords.forEach( user => {
+        let userdata = [];
+        userdata.push(user.username);
+        userdata.push(0);        
+        map.set(user.id,userdata);
+    });
+    return map;
+}
+
 exports.getTotalNoOfHours = (timesheetRecords, userRecords) => {
-    let userMap = new hashmap();
-    userMap = getUserMap.getUserMap(userRecords);  
+    let userMap = getUserMap(userRecords);  
     
     timesheetRecords.forEach( record  => {
         let userdata = userMap.get(record.user);
