@@ -6,7 +6,7 @@ exports.getWorkingHoursIntoString = ( result ) => {
     return stringResult;
 }
 
-exports.getTimesheetRecordsIntoString = ( result ) => {
+exports.getMissingDescriptionIntoString = ( result ) => {
     let stringResult = "";
     result.forEach( user => {
         stringResult = stringResult + user.username + "\n";
@@ -14,6 +14,17 @@ exports.getTimesheetRecordsIntoString = ( result ) => {
             let date = datetime.slice(0,10);
             stringResult = stringResult + "\t\t" + date + "\n";    
         });            
+    });
+    return stringResult;
+}
+
+exports.getMissingRecordsIntoString = (result) => {
+    let stringResult = "";
+    result.forEach( record => {
+        stringResult = stringResult + record[0] + "\n";
+        for( let i=1 ;i < record.length; i++  ){
+            stringResult = stringResult + "\t\t\t" + record[i] + "\n";    
+        }        
     });
     return stringResult;
 }

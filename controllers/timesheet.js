@@ -2,8 +2,8 @@ const getRecords = require('../services/kimai-api/fetchRecords');
 const emptyDescriptionService = require('../services/timesheet/emptyDescription');
 const missingRecordsService = require('../services/timesheet/missingRecords');
 const stringConverterHelper = require('../utils/stringConverterHelper');
-
-const { body } = require('express-validator/check')
+const getTimeOfCommand      = require('../utils/getTimeOfCommand');
+const { body } = require('express-validator/check');
 const { validationResult } = require('express-validator/check');
 
 exports.validate = ( method ) => {    
@@ -34,7 +34,7 @@ exports.getTimesheetMissingDescription = async ( req,res ) => {
     const userRecordsPromise      = getRecords.getUsers(); 
     const records = await Promise.all([timesheetRecordsPromise, userRecordsPromise]);
     let result    = await emptyDescriptionService.getEmptyDescriptionUsers(JSON.parse(records[0]),JSON.parse(records[1]));
-    const stringResult = stringConverterHelper.getTimesheetRecordsIntoString(result);
+    const stringResult = stringConverterHelper.getMissingDescriptionIntoString(result);
     res.send(stringResult);
 }
 
@@ -46,11 +46,13 @@ exports.getTimesheetMissingRecords = async ( req,res ) => {
     }
 
     const { body: { command } } = req;   
+    const days = getTimeOfCommand.getTimeOfCommand(command);
     const timesheetRecordsPromise = getRecords.getTimeSheetRecords(command);
     const userRecordsPromise      = getRecords.getUsers(); 
     const records = await Promise.all([timesheetRecordsPromise, userRecordsPromise]);
-    let result    = await missingRecordsService.getEmptyTimesheetUsers(JSON.parse(records[0]),JSON.parse(records[1]));
-    res.send(result);  
+    let result    = await missingRecordsService.getMissingRecords(JSON.parse(records[0]),JSON.parse(records[1]), days );
+    const stringResult = stringConverterHelper.getMissingRecordsIntoString(result);
+    res.send(stringResult);
 }
 
 
