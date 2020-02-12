@@ -1,7 +1,7 @@
 exports.getWorkingHoursIntoString = ( result ) => {
     let stringResult = "";
     result.forEach( user => {
-        stringResult = stringResult + user.username + " " + user.totalhours + "\n";
+        stringResult = stringResult + user.username + "  - " + user.totalhours + " Hr\n";
     });
     return stringResult;
 }
@@ -10,8 +10,7 @@ exports.getMissingDescriptionIntoString = ( result ) => {
     let stringResult = "";
     result.forEach( user => {
         stringResult = stringResult + user.username + "\n";
-        user.timearray.forEach( datetime => {
-            let date = datetime.slice(0,10);
+        user.timearray.forEach( date => {
             stringResult = stringResult + "\t\t" + date + "\n";    
         });            
     });

@@ -1,8 +1,12 @@
+const moment = require('moment');
+
 const checkDescription = ( timesheetRecords, id ) => {
+
     let descriptionArray = [];
     timesheetRecords.forEach( record => {  
         if( ( record.user == id) && ( record.description == null  )  ){
-            descriptionArray.push( record.begin );
+            let date = moment(record.begin).format('DD-MMMM-YYYY');
+            descriptionArray.push( date );
         }
     });
     return descriptionArray;
@@ -16,7 +20,7 @@ exports.getEmptyDescriptionUsers = ( timesheetRecords, userRecords ) => {
             result.push( 
                 {
                     username : user.username,
-                    timearray:descriptionArray
+                    timearray: descriptionArray
                 }
             );
         }
